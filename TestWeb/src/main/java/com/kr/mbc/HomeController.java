@@ -31,8 +31,19 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );		
+		model.addAttribute("serverTime", formattedDate );	
+		
 		return "home";
+		
+		/*
+		 * <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+				<beans:property name="prefix" value="/WEB-INF/views/" />
+				<beans:property name="suffix" value=".jsp" />
+			</beans:bean>
+			
+			/WEB-INF/views/home.jsp ==> view + model(값 = serverTime)
+			
+		 */
 
 		/*
 		request.setAttribute("board", bVO);
@@ -49,6 +60,7 @@ public class HomeController {
 		model.addAttribute("name",  "kimdaechul" );
 		
 		return "my";
+		///WEB-INF/views/my.jsp --> view + model(name)
 	}
 	
 	
