@@ -46,6 +46,13 @@ public class BoardRepositoryTests {
 		boardRepository.selectAllBoards()
 			.forEach(board-> log.info(board));
 	}
+	
+	@Test
+	public void selectOneByNumTest() {
+		
+		BoardVO vo = boardRepository.selectOneByNum(12);
+		log.info("vo >> " + vo);
+	}
 
 }
 

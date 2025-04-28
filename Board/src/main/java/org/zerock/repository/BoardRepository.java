@@ -63,6 +63,42 @@ public class BoardRepository {
 	} // end selectAllBoards
 		
 	//2. 단건 데이타 조회
+	public BoardVO selectOneByNum(int num) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		String sql = "select * from board where num = ?";
+		BoardVO bVo = new BoardVO();
+		
+		try {
+			//1. DB연결
+			conn = dataSource.getConnection();
+			//2. sql전송
+			pstmt = conn.prepareStatement(sql);
+			//3. sql 맵핑
+			pstmt.setInt(1, num);
+			//4. sql 실행
+			rs =  pstmt.executeQuery();
+			
+			if(rs.next()) {
+				bVo.setNum(rs.getInt("num"));
+				bVo.setName(rs.getString("name"));
+				bVo.setPass(rs.getString("pass"));
+				bVo.setEmail(rs.getString("email"));
+				bVo.setTitle(rs.getString("title"));
+				bVo.setContent(rs.getString("content"));
+				bVo.setReadCount(rs.getInt("readcount"));
+				bVo.setWriteDate(rs.getTimestamp("writedate"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return bVo;
+	} // end selectOneByNum
 	
 	//3. 데이타 추가
 	
