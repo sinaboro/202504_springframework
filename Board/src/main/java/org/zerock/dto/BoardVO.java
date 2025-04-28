@@ -1,6 +1,5 @@
 package org.zerock.dto;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import lombok.Data;
@@ -16,5 +15,5 @@ public class BoardVO {
 	private String title;
 	private String content;
 	private int readCount;        //readcount
-	private Date writeDate;  //writedate
+	private Timestamp writeDate;  //writedate
 }

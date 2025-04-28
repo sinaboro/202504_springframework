@@ -16,8 +16,6 @@ public class BoardService {
 	
 	public List<BoardVO> boardList() {
 		
-		List<BoardVO> list = repository.getAllBoards();
-		
-		return list;
+		return null;
 	}
 }
