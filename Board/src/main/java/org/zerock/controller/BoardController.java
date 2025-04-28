@@ -29,7 +29,6 @@ public class BoardController {
 	
 	private final BoardService boardService;
 	
-	
 	@GetMapping("/list")
 	public List<BoardVO> list() {
 		log.info("---------------list------------------------");
