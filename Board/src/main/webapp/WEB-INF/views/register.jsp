@@ -7,13 +7,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="../resources/css/shopping.css">
-<script type="text/javascript" src="script/board.js"></script>
+<script type="text/javascript" src="../resources/script/board.js"></script>
 </head>
 <body>
 	<div id="wrap" align="center">
 		<h1>게시글 등록</h1>
-		<form name="frm" method="post" action="BoardServlet">
-			<input type="hidden" name="command" value="board_write">
+		<form name="frm" method="post" action="/board/register">
 			<table>
 				<tr>
 					<th>작성자</th>
