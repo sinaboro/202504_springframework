@@ -53,6 +53,43 @@ public class BoardRepositoryTests {
 		BoardVO vo = boardRepository.selectOneByNum(12);
 		log.info("vo >> " + vo);
 	}
+	
+	@Test
+	public void insertBoardTest() {
+		BoardVO vo = new BoardVO();
+		
+		vo.setName("까미");
+		vo.setPass("1234");
+		vo.setEmail("test@test.com");
+		vo.setTitle("우리 강아지");
+		vo.setContent("성질 드러분 강아지");
+		
+		boardRepository.insertBoard(vo);
+	}
+
+	@Test
+	public void updateBoardTest() {
+		BoardVO vo = new BoardVO();
+		
+		vo.setName("뽀양");
+		vo.setPass("1234");
+		vo.setEmail("aaa@aaa.com");
+		vo.setTitle("우리 강아지");
+		vo.setContent("성질 착한 고양이");
+		vo.setNum(41);
+		
+		boardRepository.updateBoard(vo);
+	}
+	
+	@Test
+	public void deleteBoardTest() {
+		boardRepository.deleteBoard(41);
+	}
+	
+	@Test
+	public void updateReadCountTest() {
+		boardRepository.updateReadCount(6);
+	}
 
 }
 
