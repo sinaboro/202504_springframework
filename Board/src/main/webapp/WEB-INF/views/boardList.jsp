@@ -24,7 +24,7 @@
 				<th>작성일</th>
 				<th>조회</th>
 			</tr>
-			<c:forEach var="board" items="${boardList}">
+			<c:forEach var="board" items="${boardList }">
 				<tr class="record">
 					<td>${board.num }</td>
 					<td><a href="BoardServlet?command=board_view&num=${board.num}">
@@ -38,13 +38,3 @@
 	</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-

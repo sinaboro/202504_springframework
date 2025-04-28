@@ -7,10 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.zerock.dto.BoardVO;
 import org.zerock.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 /*
 /board/boardList -> 전체데이타반환
@@ -20,9 +23,17 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
+@Log4j
 public class BoardController {
 	
 	private final BoardService boardService;
+	
+	
+	@GetMapping("/list")
+	public List<BoardVO> list() {
+		log.info("---------------list------------------------");
+		return boardService.selectListBoard();
+	}
 	
 	@GetMapping("/boardList")
 	public String boardList(Model model) {
