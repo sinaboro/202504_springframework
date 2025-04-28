@@ -1,6 +1,5 @@
 package org.zerock.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +7,41 @@ import org.springframework.stereotype.Service;
 import org.zerock.dto.BoardVO;
 import org.zerock.repository.BoardRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class BoardService {
 
-	@Autowired
-	private BoardRepository repository;
+//	@Autowired  //필드 주입
+//	private BoardRepository boardRepository;
 	
-	public List<BoardVO> boardList() {
+	//생성자 주입
+	private final BoardRepository boardRepository;
+	
+	public List<BoardVO> selectListBoard() {
 		
-		return null;
+		return boardRepository.selectAllBoards();
+	}
+	
+	public BoardVO selectOneByNum(int num) {
+		
+		return boardRepository.selectOneByNum(num);
+	}
+	
+	public void insertBoard(BoardVO vo) {
+		boardRepository.insertBoard(vo);
+	}
+	
+	public void updateBoard(BoardVO vo) {
+		boardRepository.updateBoard(vo);
+	}
+	
+	public void deleteBoard(int num) {
+		boardRepository.deleteBoard(num);
+	}
+	
+	public void updateReadCount(int num) {
+		boardRepository.updateReadCount(num);
 	}
 }

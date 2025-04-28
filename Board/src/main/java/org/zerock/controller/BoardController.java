@@ -14,16 +14,5 @@ import org.zerock.service.BoardService;
 @RequestMapping("/board")
 public class BoardController {
 
-	@Autowired
-	private BoardService service;
 	
-	@GetMapping("/boardList")
-	public String boardList(Model model) {
-		
-		List<BoardVO> list  = service.boardList();
-		
-		model.addAttribute("boardList", list);
-		
-		return "boardList";
-	}
 }
