@@ -44,4 +44,11 @@ public class BoardController {
 		
 		return "boardList";
 	}
+	
+	@GetMapping("/register")
+	public String register() {
+		return "register";
+	}
+	
+	
 }
