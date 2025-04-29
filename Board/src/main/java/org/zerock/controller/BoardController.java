@@ -69,16 +69,15 @@ public class BoardController {
 		return "checkBoard";
 	}
 	
-	
-	
 	@PostMapping("/check")
 	public String CheckPost(@RequestParam int num, @RequestParam String pass,
 			Model model) {
-		//서비스 호출해서 true(삭제성공), false(비밀번호 틀림) 반환받는다.
+		//서비스 호출해서 true(비밀번호 맞음), false(비밀번호 틀림) 반환받는다.
 		boolean check = boardService.checkPassword(num, pass);
 		
 		if(check) {
-			//삭제
+			//비밀번호 맞음
+			model.addAttribute("num", num);
 			return "checkSuccess";
 		}else {
 			//비밀번호 틀렸다.
@@ -88,20 +87,15 @@ public class BoardController {
 		}
 	}
 	
+	@GetMapping("/delete")
+	public String deleteGet(@RequestParam int num) {
+		boardService.deleteBoard(num);
+		return "redirect:/board/boardList";
+	}
 	
-	
-	
-	@PostMapping("/check2")
-	public String checkPost2(@RequestParam int num, @RequestParam String pass, 
-			Model model) {
-		
-		boolean check = boardService.checkPassword(num, pass);
-		
-		if(check) {
-			return "checkSuccess";
-		}else {
-			model.addAttribute("message", "패스워드가 틀립니다.");
-			return "checkBoard";
-		}		
+	@GetMapping("/update")
+	public String updateGet(@RequestParam int num) {
+		log.info("update =>>>>>" + num);
+		return null;
 	}
 }

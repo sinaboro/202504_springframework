@@ -51,7 +51,6 @@ public class BoardService {
 		
 		//입력받은 비밀번호와 DB저장된 비밀번호가 같은가?
 		if(vo.getPass().equals(pass)) {
-			 boardRepository.deleteBoard(num);  //삭제 실행
 			 return true;
 		}else {
 			 return false;
