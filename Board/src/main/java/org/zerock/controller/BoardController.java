@@ -94,8 +94,27 @@ public class BoardController {
 	}
 	
 	@GetMapping("/update")
-	public String updateGet(@RequestParam int num) {
-		log.info("update =>>>>>" + num);
-		return null;
+	public String updateGet(@RequestParam int num, Model model) {
+		BoardVO vo = boardService.selectOneByNum(num);
+		model.addAttribute("board", vo);
+		return "boardUpdate";
+	}
+	
+	@PostMapping("/update")
+	public String updatePost(BoardVO vo) {
+		boardService.updateBoard(vo);
+		return "redirect:/board/view?num="+ vo.getNum();
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
