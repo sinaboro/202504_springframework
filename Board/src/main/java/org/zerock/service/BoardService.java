@@ -44,4 +44,14 @@ public class BoardService {
 	public void updateReadCount(int num) {
 		boardRepository.updateReadCount(num);
 	}
+	
+	public boolean checkPassword(int num, String pass) {
+		 BoardVO vo = boardRepository.selectOneByNum(num);
+		 if(vo.getPass().equals(pass)) {
+			 boardRepository.deleteBoard(num);
+			 return true;
+		 }else {
+			 return false;
+		 }
+	}
 }

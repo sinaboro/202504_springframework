@@ -63,4 +63,34 @@ public class BoardController {
 		return "boardView";
 	}
 	
+	@GetMapping("/check")
+	public String checkGet(@RequestParam int num, Model model) {
+		model.addAttribute("num", num);
+		return "checkBoard";
+	}
+	
+	
+	
+	@PostMapping("/check")
+	public String CheckPost(@RequestParam int num, @RequestParam String pass) {
+		log.info("check Post => " + num + " : "  + pass);
+		return null;
+	}
+	
+	
+	
+	
+	@PostMapping("/check2")
+	public String checkPost2(@RequestParam int num, @RequestParam String pass, 
+			Model model) {
+		
+		boolean check = boardService.checkPassword(num, pass);
+		
+		if(check) {
+			return "checkSuccess";
+		}else {
+			model.addAttribute("message", "패스워드가 틀립니다.");
+			return "checkBoard";
+		}		
+	}
 }
