@@ -31,12 +31,6 @@ public class BoardController {
 	
 	private final BoardService boardService;
 	
-	@GetMapping("/list")
-	public List<BoardVO> list() {
-		log.info("---------------list------------------------");
-		return boardService.selectListBoard();
-	}
-	
 	@GetMapping("/boardList")
 	public String boardList(Model model) {
 		
@@ -49,7 +43,7 @@ public class BoardController {
 	
 	@GetMapping("/register")
 	public String register() {
-		return "register";
+		return "boardRegister";
 	}
 	
 	@PostMapping("/register")
@@ -59,9 +53,13 @@ public class BoardController {
 	}
 	
 	@GetMapping("/view")
-	public String viewBoard(@RequestParam("num") int num, Model model) {
-		BoardVO vo  = boardService.selectOneByNum(num);
-		model.addAttribute("board", vo);
+	public String viewBoard(@RequestParam int num , Model model) {
+		             //DB에서 num(기본키) 62번 전체 데이타 가져와서 vo 저장(62는 DB존재하는 기본키)
+		BoardVO vo = boardService.selectOneByNum(num);
+		
+		//vo 저장된 num(62)번 데이타를 board변수 담아서 boardView.jsp전달
+		model.addAttribute("board", vo);  
+		
 		return "boardView";
 	}
 	

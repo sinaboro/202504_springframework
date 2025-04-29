@@ -12,7 +12,7 @@
 <body>
 	<div id="wrap" align="center">
 		<h1>게시글 등록</h1>
-		<form name="frm" method="post" action="/board/register">
+		<form name="frm" method="post">
 			<table>
 				<tr>
 					<th>작성자</th>
