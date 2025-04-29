@@ -46,12 +46,15 @@ public class BoardService {
 	}
 	
 	public boolean checkPassword(int num, String pass) {
-		 BoardVO vo = boardRepository.selectOneByNum(num);
-		 if(vo.getPass().equals(pass)) {
-			 boardRepository.deleteBoard(num);
+		
+		BoardVO vo = boardRepository.selectOneByNum(num);
+		
+		//입력받은 비밀번호와 DB저장된 비밀번호가 같은가?
+		if(vo.getPass().equals(pass)) {
+			 boardRepository.deleteBoard(num);  //삭제 실행
 			 return true;
-		 }else {
+		}else {
 			 return false;
-		 }
+		}
 	}
 }

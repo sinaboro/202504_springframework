@@ -21,7 +21,10 @@
 			</table>
 			<br>
 			<input type = "submit" value="확인" onclick="return passCheck()">
-			<br><br>${message}
+			<br>
+			<div style="color: red; font-size: 20px">
+				${message}
+			</div>
 		</form>
 	</div>
 </body>

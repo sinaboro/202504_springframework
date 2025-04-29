@@ -72,8 +72,20 @@ public class BoardController {
 	
 	
 	@PostMapping("/check")
-	public String CheckPost(@RequestParam int num, @RequestParam String pass) {
-		log.info("check Post => " + num + " : "  + pass);
+	public String CheckPost(@RequestParam int num, @RequestParam String pass,
+			Model model) {
+		//서비스 호출해서 true(삭제성공), false(비밀번호 틀림) 반환받는다.
+		boolean check = boardService.checkPassword(num, pass);
+		
+		if(check) {
+			//삭제
+		}else {
+			//비밀번호 틀렸다.
+			model.addAttribute("message", "비밀번호가 틀립니다.");
+			model.addAttribute("num", num);
+			return "checkBoard";
+		}
+		
 		return null;
 	}
 	
