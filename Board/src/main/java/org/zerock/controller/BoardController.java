@@ -31,7 +31,9 @@ public class BoardController {
 	
 	private final BoardService boardService;
 	
-	@GetMapping("/boardList")
+	//localhost:8008/board/boardList -> 전체 리스트 목록
+	//localhost:8008/board/ -> 전체 리스트 목록
+	@GetMapping({ "/",  "/boardList" })
 	public String boardList(Model model) {
 		
 		List<BoardVO> list = boardService.selectListBoard();
@@ -41,20 +43,24 @@ public class BoardController {
 		return "boardList";
 	}
 	
+	//localhost:8008/board/register(get) -> 멤버 등록 화면 출력
 	@GetMapping("/register")
 	public String register() {
 		return "boardRegister";
 	}
 	
+	//localhost:8008/board/register(post) -> 등록화면에서 입력한 데이타를 기반으로 DB등록 
 	@PostMapping("/register")
 	public String insertBoard(BoardVO vo) {
 		boardService.insertBoard(vo);
 		return "redirect:/board/boardList";		
 	}
 	
+	//localhost:8008/board/view -> num(기본키) 해당하는 상세 페이지
 	@GetMapping("/view")
 	public String viewBoard(@RequestParam int num , Model model) {
 		             //DB에서 num(기본키) 62번 전체 데이타 가져와서 vo 저장(62는 DB존재하는 기본키)
+		boardService.updateReadCount(num); //조회수 증가
 		BoardVO vo = boardService.selectOneByNum(num);
 		
 		//vo 저장된 num(62)번 데이타를 board변수 담아서 boardView.jsp전달
@@ -63,12 +69,14 @@ public class BoardController {
 		return "boardView";
 	}
 	
+	//localhost:8008/board/check(get) -> 삭제, 수정시 입력화면 출력 
 	@GetMapping("/check")
 	public String checkGet(@RequestParam int num, Model model) {
 		model.addAttribute("num", num);
 		return "checkBoard";
 	}
 	
+	//localhost:8008/board/check(post) -> 삭제, 수정시 DB조회해서 비밀번호 체크
 	@PostMapping("/check")
 	public String CheckPost(@RequestParam int num, @RequestParam String pass,
 			Model model) {
@@ -87,12 +95,14 @@ public class BoardController {
 		}
 	}
 	
+	//localhost:8008/board/delete => num해당 하는 데이타(DB) 삭제
 	@GetMapping("/delete")
 	public String deleteGet(@RequestParam int num) {
 		boardService.deleteBoard(num);
 		return "redirect:/board/boardList";
 	}
 	
+	//localhost:8008/board/update(get) -> 수정화면 출력
 	@GetMapping("/update")
 	public String updateGet(@RequestParam int num, Model model) {
 		BoardVO vo = boardService.selectOneByNum(num);
@@ -100,6 +110,7 @@ public class BoardController {
 		return "boardUpdate";
 	}
 	
+	//localhost:8008/board/update(post) -> 수정화면서 입력한 내용을 DB 반영
 	@PostMapping("/update")
 	public String updatePost(BoardVO vo) {
 		boardService.updateBoard(vo);
