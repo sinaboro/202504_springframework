@@ -79,14 +79,13 @@ public class BoardController {
 		
 		if(check) {
 			//삭제
+			return "checkSuccess";
 		}else {
 			//비밀번호 틀렸다.
 			model.addAttribute("message", "비밀번호가 틀립니다.");
 			model.addAttribute("num", num);
 			return "checkBoard";
 		}
-		
-		return null;
 	}
 	
 	
