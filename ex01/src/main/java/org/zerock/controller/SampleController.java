@@ -3,6 +3,9 @@ package org.zerock.controller;
 import java.text.SimpleDateFormat;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -121,6 +124,16 @@ public class SampleController {
 		log.info("/ex06_1..........");
 		log.info(dto);		
 		return "ex06_1";
+	}
+	
+	@GetMapping("/ex07")
+	public ResponseEntity<String> ex07(){
+		
+		//{"name": "홍길동"}
+		String msg = "{\"name\": \"홍길동\"}";
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-type", "application/json;charset=utf-8");
+		return new ResponseEntity<String>(msg, headers, HttpStatus.ACCEPTED);
 	}
 }
 
