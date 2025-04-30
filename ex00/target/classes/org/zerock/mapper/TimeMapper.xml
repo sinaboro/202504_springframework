@@ -8,4 +8,13 @@
     select sysdate from dual
   </select>
   
+  <select id="selectAllList" resultType="org.zerock.dto.BoardVO">
+  	select * from board order by num desc
+  </select>
+  
+  <select id="selectOnByNum" resultType="org.zerock.dto.BoardVO">
+  	select * from board where num = #{num}
+  </select>
+  
+  
 </mapper>
