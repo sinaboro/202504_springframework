@@ -156,6 +156,23 @@
 		    <version>1.16</version>
 		</dependency>
     
+    	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+    	<!-- json <======> java 객체 변환 -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.19.0</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+		<!-- xml <======> java 객체 변환 -->
+		<!-- <dependency>
+		    <groupId>com.fasterxml.jackson.dataformat</groupId>
+		    <artifactId>jackson-dataformat-xml</artifactId>
+		    <version>2.19.0</version>
+		</dependency> -->
+
+		
 	</dependencies>
     <build>
         <plugins>
