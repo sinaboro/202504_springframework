@@ -16,5 +16,13 @@
   	select * from board where num = #{num}
   </select>
   
+  <insert id="insertBoard" parameterType="org.zerock.dto.BoardVO">
+  	
+  	insert into board(num, name, pass, email,title,content) 
+  	values(board_seq.nextval, #{name},#{pass}, #{email}, #{title}, #{content} )
+  	
+  </insert>
+  
+  
   
 </mapper>

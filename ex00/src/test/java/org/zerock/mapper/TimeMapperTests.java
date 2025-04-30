@@ -48,6 +48,18 @@ public class TimeMapperTests {
 		log.info(timeMapper.selectOnByNum(5));
 	}
 
+	@Test
+	public void testInsert() {
+		BoardVO vo = new BoardVO();
+		
+		vo.setName("로이");
+		vo.setEmail("aaa@aaa.com");
+		vo.setPass("1234");
+		vo.setTitle("까망강아지");
+		vo.setContent("귀여운 강아지!!");
+		
+		timeMapper.insertBoard(vo);
+	}
 }
 
 

@@ -15,6 +15,8 @@ public interface TimeMapper {
 	public List<BoardVO> selectAllList();
 	
 	public BoardVO selectOnByNum(int num);
+	
+	public void insertBoard(BoardVO vo);
 }
 
 
