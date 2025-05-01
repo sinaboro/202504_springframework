@@ -59,6 +59,23 @@ public class BoardMapperTests {
 	}
 	
 	
+	@Test
+	public void testDelete() {
+		int result = mapper.delete(11L);
+		log.info("result >>> " + result);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }
