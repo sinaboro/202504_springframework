@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.zerock.domain.BoardVO;
 import org.zerock.service.BoardService;
 
@@ -29,22 +30,44 @@ public class BoardController {
 	}
 	
 	@PostMapping("/register")
-	public void register(BoardVO board) {
+	public String register(BoardVO board) {
 		log.info("register.......");
+		service.register(board);
+		
+		return "redirect:/board/list";
 	}
 	
 	@GetMapping("/get")
-	public void get(Long bno) {
+	public void get(@RequestParam Long bno, Model model) {
 		log.info("get..........");
+		
+		model.addAttribute("board", service.get(bno));		
 	}
 	
 	@PostMapping("/remove")
-	public void remove(Long bno) {
+	public String remove(Long bno) {
 		log.info("remove......");
+		
+		service.remove(bno);
+		
+		return "redirect:/board/list";
 	}
 	
 	@PostMapping("/modify")
-	public void modify(BoardVO board) {
+	public String modify(BoardVO board) {
 		log.info("modify.........");
+		service.modify(board);
+		return "redirect:/board/list";
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
