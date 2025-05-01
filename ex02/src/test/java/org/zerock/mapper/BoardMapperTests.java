@@ -65,7 +65,18 @@ public class BoardMapperTests {
 		log.info("result >>> " + result);
 	}
 	
-	
+	@Test
+	public void testUpdate() {
+		BoardVO vo = BoardVO.builder()
+				.title("수정 제목")
+				.content("수정 내용")
+				.writer("update00")
+				.bno(16L)
+				.build();
+		
+		int result = mapper.update(vo);
+		log.info("result >>> " + result);
+	}
 	
 	
 	
