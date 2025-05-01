@@ -36,7 +36,6 @@ public class BoardMapperTests {
 		
 	}
 	
-	
 	@Test
 	public void testInsert() {
 		BoardVO vo = BoardVO.builder()
@@ -47,6 +46,18 @@ public class BoardMapperTests {
 		
 		mapper.insert(vo);
 	}
+
+	@Test
+	public void testInsertKey() {
+		BoardVO vo = BoardVO.builder()
+				.title("test title")
+				.content("test content")
+				.writer("test00")
+				.build();
+		
+		mapper.insertSelectKey(vo);
+	}
+	
 	
 	
 
