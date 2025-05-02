@@ -19,8 +19,6 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                <form action="/board/register" method="post">
-                	
                 	<div class="form-group">
                 		<label>Bno</label><input class="form-control" name="bno" 
                 				value="<c:out value='${board.bno}' />" readonly="readonly" >
@@ -46,7 +44,6 @@
                 	
                 	<button data-oper='list' class="btn btn-default"
                 	onclick="location.href='/board/list'">List</button>
-                </form>
             </div>
             <!-- end panel-body -->
         </div>

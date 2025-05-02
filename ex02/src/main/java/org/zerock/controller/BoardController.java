@@ -60,6 +60,13 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	@GetMapping("/modify")
+	public void modify(@RequestParam Long bno, Model model) {
+		log.info(".........modify....get");
+		BoardVO board = service.get(bno);
+		model.addAttribute("board", board);
+	}
+	
 	@PostMapping("/modify")
 	public String modify(BoardVO board) {
 		log.info("modify.........");
