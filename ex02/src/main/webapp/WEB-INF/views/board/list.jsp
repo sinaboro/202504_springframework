@@ -104,6 +104,8 @@
 			
 			if(parseInt(result)>0){
 				$(".modal-body").html("게시글 " + result + "번이 등록되었습니다.");
+			}else{
+				$(".modal-body").html("게시글 " + result);
 			}
 			
 			$("#myModal").modal("show");

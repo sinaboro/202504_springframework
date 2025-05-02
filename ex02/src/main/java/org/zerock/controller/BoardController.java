@@ -52,18 +52,20 @@ public class BoardController {
 	}
 	
 	@PostMapping("/remove")
-	public String remove(Long bno) {
+	public String remove(Long bno, RedirectAttributes rttr) {
 		log.info("remove......");
 		
 		service.remove(bno);
+		rttr.addFlashAttribute("result", "삭제 성공했습니다.");
 		
 		return "redirect:/board/list";
 	}
 	
 	@PostMapping("/modify")
-	public String modify(BoardVO board) {
+	public String modify(BoardVO board, RedirectAttributes rttr) {
 		log.info("modify.........");
 		service.modify(board);
+		rttr.addFlashAttribute("result", "수정 성공했습니다.");
 		return "redirect:/board/list";
 	}
 }
