@@ -16,10 +16,10 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 Board List Page
+                <button id="regBtn" type="button" class="btn btn-xs btn-info pull-right">새글 등록</button>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                <!-- <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example"> -->
                 <table width="100%" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
@@ -97,7 +97,11 @@
 			}
 			
 			$("#myModal").modal("show");
-		}
+		} //end checkModal
+		
+		$("#regBtn").on("click", function(){
+			self.location = "/board/register";
+		});
 	});
 </script>
 
