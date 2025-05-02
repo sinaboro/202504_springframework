@@ -94,8 +94,13 @@
 		
 		checkModal(result);
 		
+		//브라우저의 현재 히스토리 항목을 새로운 상태로 대체.
+		// 페이지를 새로고침 하거나 뒤로 가기 했을 때 모달창이 다시 표시되지 않도록 한다.
+		history.replaceState({}, null, null);
+		
 		function checkModal(result){
-			if(result == '') return ;
+			
+			if(result == '' || history.state) return ;
 			
 			if(parseInt(result)>0){
 				$(".modal-body").html("게시글 " + result + "번이 등록되었습니다.");

@@ -44,9 +44,9 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	@GetMapping("/get")
+	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam Long bno, Model model) {
-		log.info("get..........");
+		log.info("get...modify.......");
 		
 		model.addAttribute("board", service.get(bno));		
 	}
@@ -58,13 +58,6 @@ public class BoardController {
 		service.remove(bno);
 		
 		return "redirect:/board/list";
-	}
-	
-	@GetMapping("/modify")
-	public void modify(@RequestParam Long bno, Model model) {
-		log.info(".........modify....get");
-		BoardVO board = service.get(bno);
-		model.addAttribute("board", board);
 	}
 	
 	@PostMapping("/modify")
