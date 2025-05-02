@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
 import org.zerock.service.BoardService;
 
@@ -29,10 +30,16 @@ public class BoardController {
 		
 	}
 	
+	@GetMapping("/register")
+	public void  register() {		
+	}
+	
 	@PostMapping("/register")
-	public String register(BoardVO board) {
+	public String register(BoardVO board, RedirectAttributes rttr) {
 		log.info("register.......");
 		service.register(board);
+		
+		rttr.addFlashAttribute("result", board.getBno());
 		
 		return "redirect:/board/list";
 	}

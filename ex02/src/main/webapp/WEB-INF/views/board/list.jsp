@@ -33,7 +33,7 @@
                     
                     <c:forEach var="board" items="${list}">
                     	<tr>
-                    		<td><c:out value="${board.bno}" /></td>
+							<td><c:out value="${board.bno}" /></td>
                     		<td><c:out value="${board.title}" /></td>
                     		<td><c:out value="${board.writer}" /></td>
                     		<td><fmt:formatDate pattern="yyyy-MM-dd"  
@@ -51,5 +51,54 @@
     <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+        처리가 완료되었습니다.
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save Changes</button>
+      </div>
+      
+    </div>
+  </div>
+</div> <!-- end The Modal -->
+
+
+
 <%@ include file="../includes/footer.jsp" %>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	
+		let result = "<c:out value='${result}' />";
+		
+		checkModal(result);
+		
+		function checkModal(result){
+			if(result == '') return ;
+			
+			if(parseInt(result)>0){
+				$(".modal-body").html("게시글 " + result + "번이 등록되었습니다.");
+			}
+			
+			$("#myModal").modal("show");
+		}
+	});
+</script>
+
     
