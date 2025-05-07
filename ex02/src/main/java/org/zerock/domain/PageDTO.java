@@ -2,9 +2,11 @@ package org.zerock.domain;
 
 import lombok.Getter;
 import lombok.ToString;
+import lombok.extern.log4j.Log4j;
 
 @Getter
 @ToString
+@Log4j
 public class PageDTO {
 
 	private int startPage;
@@ -20,10 +22,9 @@ public class PageDTO {
 	public PageDTO(Criterial cri, int total) {
 		this.cri = cri;
 		this.total = total;
-		
+	
 		//endPage
-		this.endPage = (int)(Math.ceil(cri.getPageNum()/10.0))*10;
-		
+		this.endPage = (int)(Math.ceil(cri.getPageNum()/10.0)) * 10;
 		this.startPage = this.endPage - 9;
 		
 		//전체 페이지 목록에서 마지막 페이지
@@ -35,5 +36,6 @@ public class PageDTO {
 		
 		this.prev = this.startPage>1;
 		this.next = this.endPage < realEnd;
+		
 	}
 }
