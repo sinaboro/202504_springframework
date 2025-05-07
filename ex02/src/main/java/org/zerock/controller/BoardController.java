@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criterial;
+import org.zerock.domain.PageDTO;
 import org.zerock.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,11 +25,14 @@ public class BoardController {
 	private final BoardService service;
 	
 	@GetMapping("/list")
-	public void list(Model model) {
-		log.info("list..........");
-		List<BoardVO> list = service.getList();
+	public void list(Criterial cri,Model model) {
+		
+		log.info("list.........." + cri);
+		
+		List<BoardVO> list = service.getList(cri);
 		model.addAttribute("list", list);
 		
+		model.addAttribute("pageMaker", new PageDTO(cri, 272));
 	}
 	
 	@GetMapping("/register")
@@ -56,8 +61,8 @@ public class BoardController {
 		log.info("remove......");
 		
 		service.remove(bno);
-		rttr.addFlashAttribute("result", "삭제 성공했습니다.");
-		
+	
+		rttr.addFlashAttribute("result", "삭제 성공했습니다.");		
 		return "redirect:/board/list";
 	}
 	
@@ -65,6 +70,7 @@ public class BoardController {
 	public String modify(BoardVO board, RedirectAttributes rttr) {
 		log.info("modify.........");
 		service.modify(board);
+		
 		rttr.addFlashAttribute("result", "수정 성공했습니다.");
 		return "redirect:/board/list";
 	}

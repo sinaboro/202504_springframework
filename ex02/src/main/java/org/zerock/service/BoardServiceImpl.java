@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criterial;
 import org.zerock.mapper.BoardMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -44,9 +45,9 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVO> getList() {
+	public List<BoardVO> getList(Criterial cri) {
 		log.info("getList............");		
-		return mapper.getList();
+		return mapper.getListWithPaging(cri);
 	}
 
 }

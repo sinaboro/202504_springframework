@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criterial;
 
 public interface BoardMapper {
 	
@@ -19,6 +20,6 @@ public interface BoardMapper {
 	
 	public int update(BoardVO board);
 	
-	
+	public List<BoardVO> getListWithPaging(Criterial cri);
 	
 }
