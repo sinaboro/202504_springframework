@@ -48,6 +48,11 @@
                     	</tr>
                     </c:forEach>
                 </table>
+                
+                <!-- 페이징 처리 -->
+					                
+                <!-- 페이징 종료 -->
+                
             </div>
             <!-- end panel-body -->
         </div>
