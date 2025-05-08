@@ -97,7 +97,7 @@ public class BoardMapperTests {
 		
 		map.put("T","aaa");
 		map.put("C", "bbbbbb");
-		map.put("W", "홍길동");
+//		map.put("W", "홍길동");
 		
 		
 		Map<String, Map<String, String>> outer = new HashMap<>();
@@ -110,12 +110,20 @@ public class BoardMapperTests {
 		
 		log.info("------------------------");
 		log.info(list);
-		
-		
 	}
 	
 	
-	
+	@Test
+	public void testSearch2() {
+		Criterial cri = new Criterial();
+		
+		cri.setKeyword("수정");
+		cri.setType("TW");
+		
+		mapper.getListWithPaging(cri)
+		.forEach(board-> log.info(board));
+		
+	}
 	
 	
 	
