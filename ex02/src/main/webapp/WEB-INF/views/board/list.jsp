@@ -35,9 +35,7 @@
                     	<tr>
 							<td><c:out value="${board.bno}" /></td>
                     		
-                    		<%-- <td><a href='/board/get?bno=${board.bno}'>${board.title}</a></td> --%>
-                    		
-                    		<td><a href='/board/get?bno=<c:out value="${board.bno}"/>'>   
+                    		<td><a class="move" href='<c:out value="${board.bno}"/>'>   
                     		<c:out value="${board.title}"/> </a></td>
                     		
                     		<td><c:out value="${board.writer}" /></td>
@@ -55,20 +53,31 @@
 					  <ul class="pagination">
 					   
 					   	<c:if test="${pageMaker.prev}">
-					    	<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+					    	<li class="page-item"><a class="page-link" 
+					    				href="${pageMaker.startPage - 1}">이전</a></li>
 					    </c:if>
 					   
 					    <c:forEach var="num" begin="${pageMaker.startPage}" 
 					    					end="${pageMaker.endPage}">
-					    	<li class="page-item"><a class="page-link" href="#">${num}</a></li>
+					    	<li class="page-item ${pageMaker.cri.pageNum == num ? "active" : ""} "><a class="page-link" 
+					    					href="${num}">${num}</a></li>
 					    </c:forEach>
+					    
 					    <c:if test="${pageMaker.next}">
-					    	<li class="page-item"><a class="page-link" href="#">Next</a></li>
+					    	<li class="page-item"><a class="page-link" 
+					    			href="${pageMaker.endPage + 1}">다음</a></li>
 					    </c:if>
 					  </ul>
 				  </div>
 				</div>	                
                 <!-- 페이징 종료 -->
+                
+                
+                <form id="actionForm" action="/board/list" method="get">
+                	<input type="hidden" name="pageNum" value= "${pageMaker.cri.pageNum}">
+                	<input type="hidden" name="amount" value= "${pageMaker.cri.amount}">
+                </form>
+                
                 
             </div>
             <!-- end panel-body -->
@@ -136,7 +145,47 @@
 		$("#regBtn").on("click", function(){
 			self.location = "/board/register";
 		});
+		
+		
+		// 페이지 번호 이벤트 처리
+		let actionForm = $("#actionForm");
+		
+		$(".page-item a").on("click", function(e){
+			
+			e.preventDefault();
+			
+			//console.log("click");
+			
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"))
+			actionForm.submit();
+		}); // end 페이지 번호 이벤트 처리
+		
+		
+		// 상세페이지 이동시 pageNum, amout값 전달   <td><a class="move" href='<c:out value="${board.bno}"/>'>  
+		$(".move").on("click", function(e){
+			
+			e.preventDefault();
+			
+			actionForm.append("<input type='hidden' name='bno' value='" + $(this).attr("href") + "' >");
+			
+			actionForm.attr("action", "/board/get").submit();
+			//actionForm.submit();
+			
+		}); //  end 상세페이지 이동시 pageNum, amout값 전달
+		
 	});
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
 
     

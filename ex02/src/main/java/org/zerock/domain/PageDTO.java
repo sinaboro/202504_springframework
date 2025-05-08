@@ -14,28 +14,35 @@ public class PageDTO {
 	private boolean prev, next;
 	
 	//전체 레코드 개수
-	private int total;
+	private int total;  
 	
 	//페이지정보, 페이지당 레코드 개수
-	private Criterial cri;
+	private Criterial cri;  
 	
 	public PageDTO(Criterial cri, int total) {
-		this.cri = cri;
-		this.total = total;
+		this.cri = cri;  //pageNum=15&amount=10, pageNum=22&amount=10#
+		this.total = total;  //272
 	
 		//endPage
-		this.endPage = (int)(Math.ceil(cri.getPageNum()/10.0)) * 10;
-		this.startPage = this.endPage - 9;
+		this.endPage = (int)(Math.ceil(cri.getPageNum()/10.0)) * 10; //20, 30
+		this.startPage = this.endPage - 9;                 //20-9 =11 , 30-9 = 21
 		
 		//전체 페이지 목록에서 마지막 페이지
-		int realEnd = (int)(Math.ceil((total*1.0)/cri.getAmount()));
+		int realEnd = (int)(Math.ceil((total*1.0)/cri.getAmount()));  //28
 		
 		if(realEnd < this.endPage) {
-			this.endPage = realEnd;
+			this.endPage = realEnd;  //28
 		}
 		
-		this.prev = this.startPage>1;
-		this.next = this.endPage < realEnd;
+		this.prev = this.startPage>1;  //true , true
+		this.next = this.endPage < realEnd;   //true ,false
 		
 	}
 }
+
+
+
+
+
+
+
