@@ -2,8 +2,11 @@ package org.zerock.mapper;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +91,28 @@ public class BoardMapperTests {
 	}
 	
 	
+	@Test
+	public void testSearch() {
+		Map<String , String> map = new HashMap<String, String>();
+		
+		map.put("T","aaa");
+		map.put("C", "bbbbbb");
+		map.put("W", "홍길동");
+		
+		
+		Map<String, Map<String, String>> outer = new HashMap<>();
+		
+		outer.put("map", map);
+//		log.info( (outer.get("map")) );
+//		log.info( (outer.get("map")).get("T") );
+		
+		List<BoardVO> list = mapper.searchTest(outer);
+		
+		log.info("------------------------");
+		log.info(list);
+		
+		
+	}
 	
 	
 	
