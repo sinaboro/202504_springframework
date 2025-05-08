@@ -125,7 +125,18 @@ public class BoardMapperTests {
 		
 	}
 	
-	
+	@Test
+	public void testTotalCount() {
+		Criterial cri = new Criterial();
+		
+		cri.setKeyword("수정");
+		cri.setType("TW");
+		
+		log.info("total count : ");
+		log.info(mapper.getTotalCount(cri));
+		
+		
+	}
 	
 	
 
