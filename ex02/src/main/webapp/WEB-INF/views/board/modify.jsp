@@ -75,10 +75,15 @@
 				
 				let pageNumTag = $("input[name='pageNum']").clone();
 				let amountTag = $("input[name='amount']").clone();
+				let typeTag = $("input[name='type']").clone();
+				let keywordTag = $("input[name='keyword']").clone();
 				
 				formObj.empty();  // input 태크 name속성값을 클리어.
 				formObj.append(pageNumTag);
 				formObj.append(amountTag);
+				
+				formObj.append(typeTag);
+				formObj.append(keywordTag);
 			}
 			formObj.submit();
 		});

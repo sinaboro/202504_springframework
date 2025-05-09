@@ -32,8 +32,10 @@ public class BoardController {
 		
 		List<BoardVO> list = service.getList(cri);
 		model.addAttribute("list", list);
-		                                                
-		model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
+		
+		int total = service.getTotal(cri);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total) );
 	}
 	
 	@GetMapping("/register")
