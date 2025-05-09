@@ -32,7 +32,7 @@ public class BoardController {
 		
 		List<BoardVO> list = service.getList(cri);
 		model.addAttribute("list", list);
-		
+		                                                
 		model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
 	}
 	
@@ -68,6 +68,8 @@ public class BoardController {
 		
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 	
 		return "redirect:/board/list";
 	}
@@ -82,6 +84,8 @@ public class BoardController {
 		
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		
 		return "redirect:/board/list";
 	}
