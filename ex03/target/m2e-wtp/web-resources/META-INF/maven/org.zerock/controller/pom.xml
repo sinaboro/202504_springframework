@@ -171,6 +171,14 @@
 		    <artifactId>jackson-dataformat-xml</artifactId>
 		    <version>2.19.0</version>
 		</dependency> -->
+		
+		<!-- java객체를 json으로 변환 -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.13.1</version>
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>
