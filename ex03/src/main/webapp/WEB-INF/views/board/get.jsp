@@ -212,8 +212,7 @@
 		$(".chat").on("click", "li" ,function(e){
 			let rno = $(this).data("rno");
 			
-			//console.log(rno);
-			
+			//console.log(rno);			
 			replyService.get(rno, 
 				function(reply){
 					modalInputReply.val(reply.reply);
@@ -228,6 +227,31 @@
 				}
 			);
 			
+		});
+		
+		//댓글 삭제 이벤트 처리
+		modalRemoveBtn.on("click", function(e){
+			
+			let rno = modal.data('rno');
+			
+			replyService.remove(rno, function(result){
+				alert(result);
+				modal.modal("hide");
+				showList(1);
+			})			
+		});
+		
+		//댓글 수정 이벤트 처리
+		modalModBtn.on("click", function(e){
+			let reply = {
+					rno:modal.data('rno'),
+					reply: modalInputReply.val()
+			};
+			replyService.update(reply, function(result){
+				alert(result);
+				modal.modal("hide");
+				showList(1);
+			})			
 		});
 		
 	});
