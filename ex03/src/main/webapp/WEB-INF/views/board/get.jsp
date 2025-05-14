@@ -63,6 +63,20 @@
 <script type="text/javascript">
 	let bnoValue = '<c:out value="${board.bno}" />';
 	
+	/*
+	replyService.update(
+			{rno: 21, reply: "방금 댓글 내용 수정"}, 
+			function(result){
+				alert(result)
+			}
+	);	
+	
+	replyService.get(
+			21, 
+			function(result){
+					console.log(result);
+			}
+	);	
 	
 	replyService.remove(22, 
 			function(count){
@@ -73,9 +87,10 @@
 			function(err){
 				alert("ERROR......" + err);
 			}
-		)
-	/*
-	replyService.getList({bno: bnoValue, page:1},
+	)
+	
+	replyService.getList(
+			{bno: bnoValue, page:1},
 			function(list){
 				for(let i=0; i<list.length; i++){
 					console.log(list[i]);
@@ -89,6 +104,7 @@
 			function(result){
 				alert("Result : " + result);
 			},
+			
 			function(error){
 				alert("error : " + error);
 			}

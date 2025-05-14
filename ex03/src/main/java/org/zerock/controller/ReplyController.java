@@ -69,7 +69,7 @@ public class ReplyController {
 	public ResponseEntity<String> remove(@PathVariable("rno") Long rno){
 		log.info("remove : "+ rno);
 		
-		return service.remove(rno) == 1 ? new ResponseEntity<String>("seccess", HttpStatus.OK)
+		return service.remove(rno) == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
 										: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);	
 	}
 	

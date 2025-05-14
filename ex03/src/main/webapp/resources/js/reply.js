@@ -66,9 +66,50 @@ let replyService = (function(){
         
     }; // end remove
     
+    function get(rno, callback, error){
+
+        $.ajax({
+            type: 'get',
+            url: '/replies/' + rno,
+            success: function(result, status, xhr){
+                if(callback){
+                    callback(result);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        });
+
+    }// end get
+
+    function update(reply, callback, error){
+        $.ajax({
+            type: 'put',
+            url: '/replies/' + reply.rno,
+            data: JSON.stringify(reply),
+            contentType: "application/json; charset=utf-8",
+          
+            success: function(result, status,xhr){
+                if(callback){
+                    callback(result);
+                }
+            },
+            error: function(xhr, status, err){
+                if(error){
+                    error(err);
+                }
+            }
+        })
+    } // end update
+
     return {
         add: add,
         getList: getList,
         remove: remove, 
+        get: get,
+        update: update,
     };
 })();
