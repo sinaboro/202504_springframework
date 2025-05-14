@@ -71,7 +71,7 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <ul class="chat">
-                	<li class="left clearfix data-rno='12'">
+                	<li class="left clearfix" data-rno='12'>
                 		<div>
                 			<div class="header">
                 				<strong class="primary-font">user00</strong>
@@ -153,7 +153,7 @@
 					}
 					
 					for(let i=0 ; i<list.length ; i++){
-						str += "<li class='left clearfix data-rno='"+ list[i].rno +">"
+						str += "<li class='left clearfix' data-rno='"+list[i].rno+"'>"
 	                	str +=	"<div>"
 	                	str +=	"<div class='header'>"
 	                	str +=	"<strong class='primary-font'>"+list[i].replyer+"</strong>"
@@ -206,6 +206,27 @@
 				
 				showList(1);
 			});
+		});
+		
+		//댓글 클릭 이벤트 처리
+		$(".chat").on("click", "li" ,function(e){
+			let rno = $(this).data("rno");
+			
+			//console.log(rno);
+			
+			replyService.get(rno, 
+				function(reply){
+					modalInputReply.val(reply.reply);
+					modalInputReplyer.val(reply.replyer);
+					modalInputReplyDate.val(reply.replyDate);
+					modal.data("rno", reply.rno);
+					
+					modal.find("button[id = 'modalRegisterBtn']").hide();
+					
+					modal.modal("show");
+				}
+			);
+			
 		});
 		
 	});

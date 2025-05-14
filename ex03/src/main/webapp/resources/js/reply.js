@@ -111,10 +111,7 @@ let replyService = (function(){
         let gap = today.getTime() - timeValue;
 
         let dateObj = new Date(timeValue);
-        let str = "";
-
-        console.log("-------dateObj------")
-        console.log(dateObj)
+        let str = "";     
 
         if(gap < (1000*60*60*24)){
             let hh = dateObj.getHours();
