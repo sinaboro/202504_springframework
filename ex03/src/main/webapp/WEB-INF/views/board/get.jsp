@@ -120,7 +120,7 @@
 	                	str +=	"<div>"
 	                	str +=	"<div class='header'>"
 	                	str +=	"<strong class='primary-font'>"+list[i].replyer+"</strong>"
-	                	str +=	"<small class='pull-right text-muted'>"+list[i].replyDate+"</small>"
+	                	str +=	"<small class='pull-right text-muted'>"+  replyService.displayTime(list[i].replyDate)+"</small>"
 	                	str +=	"</div>"
 	                	str +=	"<p>"+list[i].reply+"</p>"
 	                	str += 	"</div></li>"
