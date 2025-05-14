@@ -66,6 +66,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="fa fa-comments fa-fw"></i>Reply
+                <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 등록</button>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -90,7 +91,43 @@
 <!-- /.row -->
 
 
-
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+	       <div class="form-group">
+		       <label>Reply</label>
+		       <input class="form-control" name="reply" value="New Reply!!!">
+	       </div>
+	       <div class="form-group">
+			   <label>Replyer</label>
+			   <input class="form-control" name="replyer" value="Replyer">
+	       </div>	
+	       <div class="form-group">
+			   <label>Reply Date</label>
+			   <input class="form-control" name="replyDate" value="">
+	       </div>	
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button id="modalRegisterBtn" type="button" class="btn btn-primary">Register</button>
+        <button id="modalModBtn" type="button" class="btn btn-info">Modify</button>
+        <button id="modalRemoveBtn" type="button" class="btn btn-danger">Remove</button>
+        <button id="modalCloseBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> <!-- end The Modal -->
 
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 
@@ -120,7 +157,8 @@
 	                	str +=	"<div>"
 	                	str +=	"<div class='header'>"
 	                	str +=	"<strong class='primary-font'>"+list[i].replyer+"</strong>"
-	                	str +=	"<small class='pull-right text-muted'>"+  replyService.displayTime(list[i].replyDate)+"</small>"
+	                	str +=	"<small class='pull-right text-muted'>"+  
+	                				replyService.displayTime(list[i].replyDate)+"</small>"
 	                	str +=	"</div>"
 	                	str +=	"<p>"+list[i].reply+"</p>"
 	                	str += 	"</div></li>"
@@ -128,8 +166,47 @@
 					replyUL.html(str);
 				}
 			)
-		}; //end showList()
+		}; //end showList()	
 		
+		
+		let modal = $(".modal");
+		let modalInputReply = modal.find("input[name='reply']");
+		let modalInputReplyer = modal.find("input[name='replyer']");
+		let modalInputReplyDate = modal.find("input[name='replyDate']");
+		
+		let modalRegisterBtn = $("#modalRegisterBtn");
+		let modalModBtn = $("#modalModBtn")
+		let modalRemoveBtn = $("#modalRemoveBtn")
+		let modalCloseBtn = $("#modalCloseBtn")
+		
+		//댓글 등록 화면
+		$("#addReplyBtn").on("click", function(e){
+			modal.find("input").val("");
+			modalInputReplyDate.closest("div").hide();
+			modal.find("button[id != 'modalCloseBtn']").hide();
+			
+			modalRegisterBtn.show();
+			
+			modal.modal("show");
+		});
+		
+		//댓글 처리(DB저장)
+		modalRegisterBtn.on("click", function(e){
+			
+			let reply = {
+					reply: modalInputReply.val(),
+					replyer: modalInputReplyer.val(),
+					bno: bnoValue
+			}
+			
+			replyService.add(reply, function(result){
+				alert(result);
+				modal.find("input").val("");
+				modal.modal("hide");
+				
+				showList(1);
+			});
+		});
 		
 	});
 
