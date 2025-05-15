@@ -141,10 +141,18 @@
 		showList(1);
 		
 		function showList(page){
+		
 			replyService.getList(
 				{bno:bnoValue, page: page ||1 },
 				
-				function(list){
+				function(replyCnt, list){
+	
+					if(page == -1){ //마지막 페이지 이동
+						pageNum  = Math.ceil(replyCnt/10.0); //      172/10 = 17.2 = 18
+						showList(pageNum);
+						return;
+					}
+					
 					let str="";
 					
 					if(list == null || list.length == 0){
@@ -204,7 +212,7 @@
 				modal.find("input").val("");
 				modal.modal("hide");
 				
-				showList(1);
+				showList(-1);
 			});
 		});
 		

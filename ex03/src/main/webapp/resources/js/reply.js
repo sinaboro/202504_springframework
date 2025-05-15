@@ -34,8 +34,9 @@ let replyService = (function(){
             url: '/replies/pages/'+bno + "/" + page,
 
             success: function(result, status, xhr){
+
                 if(callback){
-                    callback(result);
+                    callback(result.replyCnt, result.list);
                 }
             },
             error: function(xhr, status, er){
