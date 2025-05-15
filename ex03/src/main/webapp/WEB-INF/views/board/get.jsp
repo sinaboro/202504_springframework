@@ -208,7 +208,7 @@
 			});
 		});
 		
-		//댓글 클릭 이벤트 처리
+		//댓글 클릭 이벤트 처리 - 이벤트 위임
 		$(".chat").on("click", "li" ,function(e){
 			let rno = $(this).data("rno");
 			
