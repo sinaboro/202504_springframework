@@ -224,7 +224,9 @@
 					.attr("readonly", "readonly");
 					modal.data("rno", reply.rno);
 					
-					modal.find("button[id = 'modalRegisterBtn']").hide();
+					modal.find("button[id != 'modalCloseBtn']").hide();
+					modalModBtn.show();
+					modalRemoveBtn.show();
 					
 					modal.modal("show");
 				}
@@ -240,7 +242,7 @@
 			replyService.remove(rno, function(result){
 				alert(result);
 				modal.modal("hide");
-				showList(1);
+				showList(pageNum);
 			})			
 		});
 		
@@ -253,7 +255,7 @@
 			replyService.update(reply, function(result){
 				alert(result);
 				modal.modal("hide");
-				showList(1);
+				showList(pageNum);
 			})			
 		});
 		
@@ -299,7 +301,7 @@
 			
 			str+= "</ul>";
 			
-			console.log(str);
+			//console.log(str);
 			
 			replyPageFooter.html(str);
 			
