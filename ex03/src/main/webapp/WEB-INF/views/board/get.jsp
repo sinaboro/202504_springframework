@@ -83,6 +83,8 @@
                 </ul>	
             </div>
             <!-- end panel-body -->
+            <div class="panel-footer">
+            </div>
         </div>
         <!-- end panel -->
     </div>
