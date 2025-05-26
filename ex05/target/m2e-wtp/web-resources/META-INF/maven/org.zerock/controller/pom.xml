@@ -193,6 +193,13 @@
 		    <version>2.13.1</version>
 		</dependency>
 		
+		<!-- 셈네일이미지(크기 작은 이미지 생성) -->
+		<dependency>
+		    <groupId>net.coobird</groupId>
+		    <artifactId>thumbnailator</artifactId>
+		    <version>0.4.20</version>
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>
