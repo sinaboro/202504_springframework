@@ -6,6 +6,30 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<style>
+	.uploadResult{
+		width: 100%;
+		background-color: gray;
+	}	
+	
+	.uploadResult ul{
+		display: flex;
+		flex-flow: row;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.uploadResult ul li{
+		list-style: none;
+		padding: 10px;
+	}
+	
+	.uploadResult ul li img{
+		width: 20px;
+	}
+</style>
+
 </head>
 <body>
 	<h1>Upload with Ajax</h1>
@@ -20,6 +44,9 @@
 	</div>
 	
 	<button id="uploadBtn">Upload</button>
+
+
+
 	
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -49,7 +76,13 @@
 			let str = "";
 			
 			$(uploadResultArr).each(function(i, obj){
-				str += "<li>" + obj.fileName + "</li>"
+				
+				if(!obj.image){
+					str += "<li><img src='/resources/img/attach.png'>" 
+							+ obj.fileName + "</li>";
+				}else{
+					str += "<li>" + obj.fileName + "</li>"
+				}
 			});
 			
 			uploadResult.append(str);
@@ -84,6 +117,7 @@
 				contentType: false,  //contentType 설정하지않음( 자동으로 enctype="multipart/form-data")
 				data: formData,
 				dataType: 'json',  //전달데이타가 형식이 json
+				
 				success: function(result){
 					console.log(result);
 					

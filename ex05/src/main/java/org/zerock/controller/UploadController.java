@@ -10,11 +10,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -78,6 +80,31 @@ public class UploadController {
 		}
 		
 		return false;
+	}
+	
+	
+	@GetMapping("/display")
+	@ResponseBody         //byte A-> 01000001 , a-> 01100001
+	public ResponseEntity<byte[]> getFile(String fileName){   
+//		File file = new File("c:/upload/" + fileName);
+		File file = new File("c:\\upload\\" + fileName);
+		
+		ResponseEntity<byte[]> result = null;
+		
+		try {
+			
+			HttpHeaders header = new HttpHeaders();
+									    //MIME 타입 --> image/jpg, application/pdf
+			header.add("content-Type", Files.probeContentType(file.toPath()));
+			                                   // 본문(내용),                         MIME 타입,  상태코드
+			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;  //MIME타입을 포함한 바이너리 데이터로 응답(상태코드포함)
 	}
 	
 	@GetMapping("/uploadAjax")
