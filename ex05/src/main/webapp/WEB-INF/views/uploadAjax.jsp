@@ -23,11 +23,43 @@
 	.uploadResult ul li{
 		list-style: none;
 		padding: 10px;
+		align-content: center;
+		text-align: center;
+	}
+		
+	.uploadResult ul li img{
+		width: 100px;
+	}
+
+	.uploadResult ul li img span{
+		color: white;
 	}
 	
-	.uploadResult ul li img{
-		width: 20px;
+	.bigPictureWrapper{
+		position: absolute;
+		display: none;
+		justify-content: center;
+		align-items: center;
+		top: 0%;
+		width: 100%;
+		height: 100%;
+		background-color: gray;
+		z-index: 100;
+		background: rgba(255,255,255, 0.5);
 	}
+	
+	.bigPicture{
+		position: relative;
+		display: flex; 
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.bigPicture img{
+		width: 600px;
+	}
+	
+	
 </style>
 
 </head>
@@ -41,18 +73,39 @@
 	<div class="uploadResult">
 		<ul>
 		</ul>
-	</div>
+	</div>	
 	
 	<button id="uploadBtn">Upload</button>
-
-
-
+	
+	<div class="bigPictureWrapper">
+		<div class="bigPicture">
+		</div>
+	</div>
 	
 <script type="text/javascript">
+	
+	
+	function showImage(fileCallPath){
+		
+		$(".bigPictureWrapper").css("display", "flex").show();
+		$(".bigPicture")
+			.html("<img src='/display?fileName=" + encodeURI(fileCallPath)+ "'>")
+			.animate({width:'100%', height: '100%'}, 1000);		
+	}; //end showImage
+	
 	$(document).ready(function(){
 		
 		let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$")
 		let maxSize = 5242880; //5MB
+		
+		
+		$(".bigPictureWrapper").on("click", function(e){
+			$(".bigPicture").animate({width:'0%', height: '0%'}, 1000);
+			setTimeout(()=>{
+				$(this).hide();
+			}, 1000);
+		});
+		
 		
 		function checkExtension(fileName, fileSize){
 			if(fileSize >= maxSize){
@@ -85,8 +138,15 @@
 							+ "<img src='/resources/img/attach.png'>" + obj.fileName + "</a></li>";
 				}else{
 					let fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
-										
-					str += "<li><img src='/display?fileName="+ fileCallPath +"'></li>"
+					
+					let orginPath = obj.uploadPath + "\\" + obj.uuid + "_" + obj.fileName;
+					
+					//           c:\\upload\\2025\\05\27\\000001.jpg => c:/upload/2025/05/27/000001.jpg	
+					orginPath = orginPath.replace(new RegExp(/\\/g), "/");
+					
+					str += "<li><a href=\"javascript:showImage(\'"+ 
+							orginPath + "\')\"><img src='/display?fileName="+ 
+							fileCallPath +"'></a></li>"
 				}
 			});
 			
