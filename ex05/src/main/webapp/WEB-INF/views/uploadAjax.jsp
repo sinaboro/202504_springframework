@@ -14,6 +14,11 @@
 		<input type="file" name="uploadFile" multiple="multiple">
 	</div>
 	
+	<div class="uploadResult">
+		<ul>
+		</ul>
+	</div>
+	
 	<button id="uploadBtn">Upload</button>
 	
 <script type="text/javascript">
@@ -36,14 +41,32 @@
 			return true;
 		}
 		
+		
+		let uploadResult = $(".uploadResult ul");
+		
+		function showUploadFile(uploadResultArr){
+			
+			let str = "";
+			
+			$(uploadResultArr).each(function(i, obj){
+				str += "<li>" + obj.fileName + "</li>"
+			});
+			
+			uploadResult.append(str);
+			
+		}; //end showUploadFile
+		
+		
+		let cloneObj = $(".uploadDiv").clone();
+		
 		$("#uploadBtn").on("click", function(e){
 			let formData = new FormData();
 			let inputFile = $("input[name='uploadFile']");
 			
 			let files = inputFile[0].files;
-			console.log(inputFile)
+			/* console.log(inputFile)
 			console.log("-------------------")
-			console.log(files)
+			console.log(files) */
 			
 			for(let i=0; i<files.length; i++){
 				
@@ -63,6 +86,9 @@
 				dataType: 'json',  //전달데이타가 형식이 json
 				success: function(result){
 					console.log(result);
+					
+					showUploadFile(result);
+					$(".uploadDiv").html(cloneObj.html());
 				}
 			});
 		});	 
