@@ -93,13 +93,17 @@ public class UploadController {
 		FileSystemResource resource = new FileSystemResource("c:\\upload\\" + fileName);
 		
 		String resourceName = resource.getFilename();
-	
+		
 		log.info("resourceName >> " + resourceName);
+		
+		String downloadName = resourceName.substring(resourceName.indexOf("_")+1);
+		
+		log.info("downloadName >> " + downloadName);
 		
 		HttpHeaders headers = new HttpHeaders();
 		
 		try {
-			headers.add("Content-Disposition", "attachment; filename=" + URLEncoder.encode(resourceName, "utf-8"));
+			headers.add("Content-Disposition", "attachment; filename=" + URLEncoder.encode(downloadName, "utf-8"));
 		}catch(UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
