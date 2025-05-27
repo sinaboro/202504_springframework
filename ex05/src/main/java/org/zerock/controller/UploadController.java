@@ -97,12 +97,12 @@ public class UploadController {
 									    //MIME 타입 --> image/jpg, application/pdf
 			header.add("content-Type", Files.probeContentType(file.toPath()));
 			                                   // 본문(내용),                         MIME 타입,  상태코드
-			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file), 
+					header, HttpStatus.OK);
 			
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		
 		
 		return result;  //MIME타입을 포함한 바이너리 데이터로 응답(상태코드포함)
 	}
@@ -161,7 +161,7 @@ public class UploadController {
 							new File(uploadPath , "s_" + uploadFileName)
 					);
 					
-					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100 );
+					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 200, 200 );
 					
 					thumbnail.close();
 				}
