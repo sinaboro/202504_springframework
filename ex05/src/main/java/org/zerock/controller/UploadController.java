@@ -117,7 +117,7 @@ public class UploadController {
 			uploadFileName = uuid.toString() + "_" + uploadFileName;			
 			
 			attchFileDTO.setUuid(uuid.toString());
-			attchFileDTO.setFileName(uploadFileName);  //원본파일명
+			attchFileDTO.setFileName(multipartFile.getOriginalFilename());  //원본파일명
 			attchFileDTO.setUploadPath(uploadFolderPath);
 			
 			try {

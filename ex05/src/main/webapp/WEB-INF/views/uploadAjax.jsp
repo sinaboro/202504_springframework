@@ -53,8 +53,6 @@
 					
 				formData.append("uploadFile", files[i]);
 			}
-			console.log("formData");
-			console.log(formData);
 			
 			$.ajax({
 				url: "/uploadAjaxAction",
@@ -62,9 +60,9 @@
 				processData: false,  //필수 - > 데이터를 문자열로 변환하지말라!
 				contentType: false,  //contentType 설정하지않음( 자동으로 enctype="multipart/form-data")
 				data: formData,
-				
+				dataType: 'json',  //전달데이타가 형식이 json
 				success: function(result){
-					alert(result);
+					console.log(result);
 				}
 			});
 		});	 
