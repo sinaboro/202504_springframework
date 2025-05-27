@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,7 @@ import org.zerock.domain.AttchFileDTO;
 
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Log4j
@@ -133,6 +135,31 @@ public class UploadController {
 		}
 		
 		return result;  //MIME타입을 포함한 바이너리 데이터로 응답(상태코드포함)
+	}
+	
+	@PostMapping(value = "/deleteFile")
+	@ResponseBody
+	public ResponseEntity<String> deleteFile(String fileName, String type){
+		
+		File file;
+		
+		try {
+			
+			file = new File("c:\\upload\\" + URLDecoder.decode(fileName, "utf-8"));
+			file.delete();  //파일 삭제
+			
+			if(type.equals("image")) {
+				String largeFileName = file.getAbsolutePath().replace("s_", "");
+				log.info("largeFileName>>  " + largeFileName );
+				
+				file = new File(largeFileName);
+				file.delete();
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 	
 	@GetMapping("/uploadAjax")
