@@ -3,6 +3,8 @@ package org.zerock.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -81,7 +85,27 @@ public class UploadController {
 		
 		return false;
 	}
+	                                   //형식을 알수 없는 모든 종류의 파일에 사용할 수 있는 기본값 MINE
+	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@ResponseBody
+	public ResponseEntity<Resource> downloadFile(String fileName){
+		
+		FileSystemResource resource = new FileSystemResource("c:\\upload\\" + fileName);
+		
+		String resourceName = resource.getFilename();
 	
+		log.info("resourceName >> " + resourceName);
+		
+		HttpHeaders headers = new HttpHeaders();
+		
+		try {
+			headers.add("Content-Disposition", "attachment; filename=" + URLEncoder.encode(resourceName, "utf-8"));
+		}catch(UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+	}
 	
 	@GetMapping("/display")
 	@ResponseBody         //byte A-> 01000001 , a-> 01100001
