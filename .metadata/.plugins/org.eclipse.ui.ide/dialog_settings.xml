@@ -109,6 +109,9 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="D:\Dev\Works\spring\review"/>
+			<item value="D:\Dev\Works\spring\performance_board"/>
+			<item value="D:\Dev\Works\spring\paldo"/>
 			<item value="D:\Dev\Works\spring\ex00"/>
 			<item value="D:\Dev\Works\spring\Board"/>
 		</list>

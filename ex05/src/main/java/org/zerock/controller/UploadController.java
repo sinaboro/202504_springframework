@@ -5,15 +5,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.domain.AttchFileDTO;
 
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -80,13 +86,17 @@ public class UploadController {
 	}
 	
 	
-	@PostMapping("/uploadAjaxAction")
-	public @ResponseBody String uploadAjaxAction(MultipartFile[] uploadFile, Model model){
+	@PostMapping(value =  "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public  ResponseEntity<List<AttchFileDTO>> uploadAjaxAction(MultipartFile[] uploadFile, Model model){
 	
-		String uploadFolder = "c:\\upload";
+		List<AttchFileDTO> list = new ArrayList<AttchFileDTO>();
 		
-        //c:\\upload\\2025\\05\\26
-		File uploadPath = new File(uploadFolder, getFolder());
+		String uploadFolder = "c:\\upload";
+		String uploadFolderPath = getFolder();  //2025\\05\\27
+		
+        //c:\\upload\\2025\\05\\27
+		File uploadPath = new File(uploadFolder, uploadFolderPath);
 		
 		if(uploadPath.exists() == false) {  //폴더 생성
 			log.info("-----------mkdir-----------");
@@ -94,25 +104,32 @@ public class UploadController {
 		}
 		
 		for(MultipartFile multipartFile  : uploadFile) {
-			log.info("--------------------------");
-			log.info("Upload File Name : " + multipartFile.getOriginalFilename());
-			log.info("Upload File size : " + multipartFile.getSize());
+//			log.info("--------------------------");
+//			log.info("Upload File Name : " + multipartFile.getOriginalFilename());
+//			log.info("Upload File size : " + multipartFile.getSize());
+			
+			AttchFileDTO attchFileDTO = new AttchFileDTO();
 			
 			String uploadFileName = multipartFile.getOriginalFilename();
 			
-			UUID uuid =UUID.randomUUID();
+			UUID uuid = UUID.randomUUID();
 			
-			uploadFileName = uuid.toString() + "_" + uploadFileName;
+			uploadFileName = uuid.toString() + "_" + uploadFileName;			
 			
-			 //c:\\upload\\2025\\05\\26\\001.jpg
-			File savedFile = new File(uploadPath, uploadFileName );
+			attchFileDTO.setUuid(uuid.toString());
+			attchFileDTO.setFileName(uploadFileName);  //원본파일명
+			attchFileDTO.setUploadPath(uploadFolderPath);
 			
 			try {
+				//c:\\upload\\2025\\05\\26\\001.jpg
+				File savedFile = new File(uploadPath, uploadFileName );
 				multipartFile.transferTo(savedFile);
 				
-				
-				//셈네일 파일 생성
+				//셈네일 파일 생성 , c:\\upload\\2025\\05\\26\\s_001.jpg
 				if(checkImageType(savedFile)) {
+					
+					attchFileDTO.setImage(true);
+					
 					FileOutputStream thumbnail = new FileOutputStream(
 							new File(uploadPath , "s_" + uploadFileName)
 					);
@@ -122,13 +139,17 @@ public class UploadController {
 					thumbnail.close();
 				}
 				
+				list.add(attchFileDTO);
+				
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}		
-		return "success";
+			
+		} //end for
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	@PostMapping("/uploadAjaxAction_old")
