@@ -14,6 +14,9 @@
 		<security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')" />
 		<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')" />
 		
+		<!-- csrf 보안 정책을 사용하지 않겠다... -->
+		<security:csrf disabled="true"/>
+		
 		<!-- <security:form-login/> -->
 		<!-- 시큐리티가 제공하는 로그인 페이지를 사용하지 않고, 내가 직접 로그인 페이지를 구현하겠다. -->
 		<security:form-login login-page="/customLogin"/>
