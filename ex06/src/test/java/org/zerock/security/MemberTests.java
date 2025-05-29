@@ -76,6 +76,16 @@ public class MemberTests {
 		}
 		
 	}
+	
+	@Test
+	public void validate() {
+		if(pwencoder.matches("pw1", "$2a$10$hwftMXtKpIBrjHlK4529UuUvmeHcc5/6N1NzZ25n3m9hbpmtiz/b2"))
+			log.info("비밀번호 일치");
+		else
+			log.info("비밀번호 불일치");
+	}
+	
+	
 }
 
 
