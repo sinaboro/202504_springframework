@@ -85,7 +85,50 @@ public class MemberTests {
 			log.info("비밀번호 불일치");
 	}
 	
-	
+	@Test
+	public void testInsertAuth() {
+		String sql = "insert into tbl_member_auth(userid, auth) values(?, ?)";
+		
+		for(int i=0; i<100; i++) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			
+			try {
+				conn = ds.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				
+				if(i<80) {
+					pstmt.setString(1, "user"+i);
+					pstmt.setString(2, "ROLE_USER");
+				}else if(i<90) {
+					pstmt.setString(1, "menager"+i);
+					pstmt.setString(2, "ROLE_MEMBER");
+				}else {
+					pstmt.setString(1, "admin"+i);
+					pstmt.setString(2, "ROLE_ADMIN");
+				}
+				
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(pstmt != null)
+					try {
+						pstmt.close();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					
+				if(conn != null)
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+			}
+		}
+		
+	}
 }
 
 
