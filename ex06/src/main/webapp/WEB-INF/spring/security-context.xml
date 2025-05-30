@@ -7,7 +7,7 @@
 
 	
 	<bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
-	<bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean>
+	<!-- <bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean> -->
 	<bean id="bcryptPasswordEncoder" 
 	class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	
@@ -24,9 +24,11 @@
 		<!-- <security:form-login/> -->
 		<!-- 시큐리티가 제공하는 로그인 페이지를 사용하지 않고, 내가 직접 로그인 페이지를 구현하겠다. -->
 		
-		<security:form-login login-page="/customLogin" 
+	<!-- 	<security:form-login login-page="/customLogin" 
 			authentication-success-handler-ref="customLoginSuccess"
-		/>
+		/> -->
+
+		<security:form-login login-page="/customLogin" />
 		
 		<!-- <security:access-denied-handler error-page="/accessError"/> -->
 		<!-- 접근 권한이 없을 때 실행되는 handler 예> 회원이 관리자페이지 접근시 -->
