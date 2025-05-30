@@ -78,6 +78,7 @@ public class ReplyController {
 										: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);	
 	}
 	
+	@PreAuthorize("principal.username == #vo.replyer")
 	@RequestMapping(method   = {RequestMethod.PUT, RequestMethod.PATCH},
 					value = "/{rno}",
 					consumes = "application/json",

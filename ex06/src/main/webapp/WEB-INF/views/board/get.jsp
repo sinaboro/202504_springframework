@@ -291,10 +291,27 @@
 		
 		//댓글 수정 이벤트 처리
 		modalModBtn.on("click", function(e){
+			
+			if(!replyer){
+				alert("로그인후 수정이 가능합니다.");
+				modal.modal("hdie");
+				return;
+			}
+			
+			let originalReplyer = modalInputReplyer.val();
+			
+			if(replyer != originalReplyer){
+				alert("자신이 작성한 댓글만 수정이 가능합니다.");
+				modal.modal("hide");
+				return;
+			}
+			
 			let reply = {
 					rno:modal.data('rno'),
-					reply: modalInputReply.val()
+					reply: modalInputReply.val(),
+					replyer: originalReplyer
 			};
+			
 			replyService.update(reply, function(result){
 				alert(result);
 				modal.modal("hide");
