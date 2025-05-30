@@ -286,7 +286,7 @@
 				alert(result);
 				modal.modal("hide");
 				showList(pageNum);
-			})			
+			});			
 		});
 		
 		//댓글 수정 이벤트 처리
