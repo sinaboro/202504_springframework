@@ -195,9 +195,25 @@
 		let modalRemoveBtn = $("#modalRemoveBtn")
 		let modalCloseBtn = $("#modalCloseBtn")
 		
+		let replyer = null;
+		
+		<sec:authorize access="isAuthenticated()">
+			replyer = '<sec:authentication property="principal.username" />';
+		</sec:authorize>
+		
+		let csrfHeaderName = "${_csrf.headerName}";
+		let csrfTokenValue = "${_csrf.token}";
+		
+		$(document).ajaxSend(function(e, xhr, options){
+			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		});
+		
 		//댓글 등록 화면
 		$("#addReplyBtn").on("click", function(e){
 			modal.find("input").val("");
+			
+			modal.find("input[name='replyer']").val(replyer); //댓글 작성자 자동입력(login한 사람ID)
+			
 			modalInputReplyDate.closest("div").hide();
 			modal.find("button[id != 'modalCloseBtn']").hide();
 			
@@ -252,7 +268,21 @@
 			
 			let rno = modal.data('rno');
 			
-			replyService.remove(rno, function(result){
+			if(!replyer){
+				alert("로그인후 삭제가 가능합니다.");
+				modal.modal("hdie");
+				return;
+			}
+			
+			let originalReplyer = modalInputReplyer.val();
+			
+			if(replyer != originalReplyer){
+				alert("자신이 작성한 댓글만 삭제가 가능합니다.");
+				modal.modal("hide");
+				return;
+			}
+			
+			replyService.remove(rno, originalReplyer, function(result){
 				alert(result);
 				modal.modal("hide");
 				showList(pageNum);
