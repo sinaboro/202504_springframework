@@ -42,7 +42,7 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
+                        <h3 class="panel-title">Login Page</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" method="post" action="/login">
@@ -88,6 +88,15 @@
 			$("form").submit();
 		});
 	</script>
+	
+	<c:if test="${param.logout != null }">
+		<script type="text/javascript">
+			$(document).ready(function(){
+				alert("로그아웃하였습니다.");
+			});
+		</script>
+	
+	</c:if>
 </body>
 
 </html>
